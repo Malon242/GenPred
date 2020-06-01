@@ -1,0 +1,6 @@
+# Ignore files with keys
+twitter_keys.txt
+reddit_keys.txt
+
+# Ignore DS_Store file
+.DS_Store
