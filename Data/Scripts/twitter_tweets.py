@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+# This program uses csv files containing Twitter usernames and number of statuses.
+# It first removes duplicates from these files, and filters out users based on 
+# the number of statuses and the total number of users wanted. For every remaining 
+# user it then scrapes tweets from the timeline (excluding retweets and replies) 
+# and writes these to a csv file.
+# Currently limited to 200 users per gender and up to 200 tweets per user.
+
 import csv
 import time
 import tweepy
@@ -30,9 +37,8 @@ def read_data():
 
 
 def filter_users(lst):
-	"""Remove duplicate users from dataframes,  
-	filter out users with less than 1000 statuses,
-	and reduce dataframes to 300 users per frame"""
+	"""Remove duplicate users from dataframes, filter out users with 
+	less than 1000 statuses, and reduce dataframes to 200 users per frame"""
 	new_lst = []
 
 	for frame in lst:
@@ -44,9 +50,9 @@ def filter_users(lst):
 	return new_lst
 
 
-def tweets(csv_writer, row, api):
-	print(row.name, row['username'])
-
+def tweet_scrape(csv_writer, row, api):
+	"""Scrape tweets from user's timeline, excluding retweets and replies.
+	Write username and tweettext to csv file"""
 	try:
 		for tweet in tweepy.Cursor(api.user_timeline, screen_name=row['username'], 
 			exclude_replies=True, include_rts=False).items(200):
@@ -59,13 +65,13 @@ def tweets(csv_writer, row, api):
 
 
 def get_tweets(df, file, api):
-	"""Get 250 per user, except retweets and replies, and write to file"""
+	"""Create csv file and apply tweet scraping funtion for every user in the dataframe"""
 	filename = '../Twitter Data/{}'.format(file)
 	header = ['id', 'username', 'tweet']
 	with open(filename, 'a+') as f:
 		csv_writer = csv.writer(f)
 		csv_writer.writerow(header)
-		df.apply(lambda row: tweets(csv_writer, row, api), axis=1)
+		df.apply(lambda row: tweet_scrape(csv_writer, row, api), axis=1)
 
 
 def main():
