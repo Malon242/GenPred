@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-# Search keywords similar to Twitter (she/her, he/him, they/them)
-# Get comment title and author
-# Exclude posts containing pronouns other than query
-# Get as many posts and comments from user as possible
+# This program searches for Reddit submissions which include the gender keywords provided
+# in the query. It then writes the author's name, submission title, and submission text
+# to a csv file. 
+# Currently limited to 500 submissions per gender, not filtered
 
 import csv
 import praw
-from praw.models import MoreComments
 
 def credentials():
 	"""Reads consumer keys and access tokens from reddit_keys.txt file"""
@@ -16,17 +15,32 @@ def credentials():
 
 	r = praw.Reddit(client_id=lines[0].split('=')[1].strip(),
 					client_secret=lines[1].split('=')[1].strip(),
-					user_agent='PyDisc Extraction: v1.2.5')
+					user_agent='PyUser Extraction: v1.0')
 
 	return r
+
+
+def submissions(file, term, r):
+	"""Create csv file and add author, submission title and text 
+	from search based on gender keywords."""
+	filename = '../Reddit Data/{}'.format(file)
+	header = ['author', 'title', 'text']
+
+	with open(filename, 'a+') as f:
+		csv_writer = csv.writer(f)
+		csv_writer.writerow(header)
+
+		for submission in r.subreddit('all').search(term, limit=500):
+			csv_writer.writerow([submission.author, submission.title, submission.selftext])
+			print(submission.author)
 
 
 def main():
 	r = credentials()
 
-	with open('../')
-	for comment in r.subreddit('all').search(' she/her ', limit=500):
-		print(comment.title, comment.author)
+	submissions('r_users_nb.csv', 'they/them', r) # NON-BINARY
+	submissions('r_users_m.csv', 'he/him', r) # MALE
+	submissions('r_users_f.csv', 'she/her', r) # FEMALE
 
 if __name__ == '__main__':
 	main()
