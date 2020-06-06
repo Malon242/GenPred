@@ -56,7 +56,7 @@ def tweet_scrape(csv_writer, row, api):
 	try:
 		for tweet in tweepy.Cursor(api.user_timeline, screen_name=row['username'], 
 			exclude_replies=True, include_rts=False).items(200):
-			csv_writer.writerow([row.name, row['username'], tweet.text])
+			csv_writer.writerow([row['username'], tweet.text])
 	except tweepy.TweepError as e:
 		if e == "[{u'message': u'Rate limit exceeded', u'code': 88}]":
 			time.sleep(60*5) #Sleep for 5 minutes
@@ -67,7 +67,7 @@ def tweet_scrape(csv_writer, row, api):
 def get_tweets(df, file, api):
 	"""Create csv file and apply tweet scraping funtion for every user in the dataframe"""
 	filename = '../Twitter Data/{}'.format(file)
-	header = ['id', 'username', 'tweet']
+	header = ['username', 'tweet']
 	with open(filename, 'a+') as f:
 		csv_writer = csv.writer(f)
 		csv_writer.writerow(header)
