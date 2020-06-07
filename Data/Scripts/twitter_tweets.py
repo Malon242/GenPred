@@ -44,7 +44,7 @@ def filter_users(lst):
 	for frame in lst:
 		frame = frame.drop_duplicates()
 		frame = frame[frame['status_count'] > 1000]
-		frame = frame.drop(frame.index[199:-1]).reset_index(drop=True)
+		frame = frame.sample(n=250, random_state=1).reset_index(drop=True)
 		new_lst.append(frame)
 
 	return new_lst
@@ -55,8 +55,8 @@ def tweet_scrape(csv_writer, row, api):
 	Write username and tweettext to csv file"""
 	try:
 		for tweet in tweepy.Cursor(api.user_timeline, screen_name=row['username'], 
-			exclude_replies=True, include_rts=False).items(200):
-			csv_writer.writerow([row['username'], tweet.text])
+			exclude_replies=True, include_rts=False, tweet_mode="extended").items(250):
+			csv_writer.writerow([row['username'], tweet.full_text])
 	except tweepy.TweepError as e:
 		if e == "[{u'message': u'Rate limit exceeded', u'code': 88}]":
 			time.sleep(60*5) #Sleep for 5 minutes
