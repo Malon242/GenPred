@@ -5,7 +5,7 @@
 # the number of statuses and the total number of users wanted. For every remaining 
 # user it then scrapes tweets from the timeline (excluding retweets and replies) 
 # and writes these to a csv file.
-# Currently limited to 200 users per gender and up to 200 tweets per user.
+# Currently limited to 250 users per gender and up to 250 tweets per user.
 
 import csv
 import time
@@ -38,7 +38,7 @@ def read_data():
 
 def filter_users(lst):
 	"""Remove duplicate users from dataframes, filter out users with 
-	less than 1000 statuses, and reduce dataframes to 200 users per frame"""
+	less than 1000 statuses, and reduce dataframes to 250 users per frame"""
 	new_lst = []
 
 	for frame in lst:
