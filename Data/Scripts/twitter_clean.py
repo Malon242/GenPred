@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-# This program clean the original Twitter data by adding tags, removing a number of 
+# This program cleans the original Twitter data by adding tags, removing a number of 
 # automatically generated tweets, and removing duplicate tweets.
 # It also removes short tweets and users with a small number of tweets.
-# Currently the length of a tweet is at least 5 parts and 
+# Currently the length of a tweet is at least 10 parts and 
 # a user has to have at least 10 tweets
 
 import re
@@ -24,15 +24,14 @@ def clean_tweet(tweet):
 	tweet = re.sub(r"https://t.co/\w+", '<LINK>', tweet) # Replace links with <LINK> tag
 	tweet = re.sub(r"@\w+", '<USER> ', tweet) # Replace @user with <USER> tag
 	tweet = re.sub(r"😺✏ — ((?s).*?)<LINK>", r"<CATASK> \1", tweet) # Add a tag to CuriousCat answers
-	tweet = re.sub(r"\[ID(.*?)\]", '<PICDESC>', tweet) 
-	tweet = re.sub(r"\[alt(.*?)\]", '<PICDESC>', tweet)
-	tweet = re.sub(r"\[Alt(.*?)\]", '<PICDESC>', tweet)
-	tweet = re.sub(r"\[desc(.*?)\]", '<PICDESC>', tweet)
+	tweet = re.sub(r"\[ID(.*?)\]", '<PICDESC>', tweet, flags=re.I) 
+	tweet = re.sub(r"\[alt(.*?)\]", '<PICDESC>', tweet, flags=re.I)
+	tweet = re.sub(r"\[desc(.*?)\]", '<PICDESC>', tweet, flags=re.I)
 
 	# Replace automatically generated text and short tweets with None
 	to_be_removed = ['My week on Twitter', 'My fitbit #Fitstats', 'biggest fans this week',
 	'via @YouTube', 'automatically checked by', '#MyTwitterAnniversary']
-	if any(n in tweet for n in to_be_removed) or len(tweet.split(' '))<5: 
+	if any(n in tweet for n in to_be_removed) or len(tweet.split(' '))<10: 
 		tweet = None
 
 	return tweet
@@ -48,7 +47,6 @@ def main():
 		df['tweet'] = df['tweet'].apply(lambda x: clean_tweet(x))
 		df = df.dropna().drop_duplicates()
 		df = df.groupby('username').filter(lambda x: len(x)>10)
-		print(df.shape, df['username'].nunique())
 		df.to_csv(f, index=False)
 
 if __name__ == '__main__':
