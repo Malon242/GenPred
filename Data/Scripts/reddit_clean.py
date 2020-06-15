@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-# This program cleans the original Reddit data by adding tags, removing a number
-# of submissions that are too short, or have already been removed by the user, or are 
-# duplicate submissions. User with a small number of submissions are also removed.
-# Currently the length of a submission is at least 8 parts and 
-# a user has to have at least 10 submissions
-
+'''
+This program cleans the original Reddit data by adding tags, removing a number
+of submissions that are too short, or have already been removed by the user, or are 
+duplicate submissions. User with a small number of submissions are also removed.
+Currently the length of a submission is at least 8 parts and 
+a user has to have at least 10 submissions
+'''
 
 import re
 import pandas as pd
@@ -67,4 +68,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-	

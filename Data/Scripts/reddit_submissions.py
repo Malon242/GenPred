@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-# This program uses csv files containing Reddit usernames. It first removes 
-# duplicates from these files, and reduces the number of users. For every 
-# remaining user it then scrapes posts and comments and writes these to a csv file.
-# Currently limited to 250 users per gender, maximum 150 comments and 100 posts per user.
+'''
+This program uses csv files containing Reddit usernames. It first removes 
+duplicates from these files, and reduces the number of users. For every 
+remaining user it then scrapes posts and comments and writes these to a csv file.
+Currently limited to 250 users per gender, maximum 150 comments and 100 posts per user.
+'''
 
 import csv
 import praw

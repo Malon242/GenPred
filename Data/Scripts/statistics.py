@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 
+'''
+This program calculates and prints statistics for the Twitter and Reddit
+training, validation and test sets. The statistics contain information about 
+the number of rows (size) of the data sets, the number of unique users per gender
+and the average length of the combined posts per gender and in total. 
+'''
+
 import pandas as pd
 
 def read_data():
-	"""Read csv files and add column with gender"""
+	"""Read csv files and add name to dataframe"""
 	tw_train = pd.read_csv('../Final Data/tw_train.csv')
 	tw_train.name = 'Twitter training data'
 	tw_val = pd.read_csv('../Final Data/tw_validation.csv')

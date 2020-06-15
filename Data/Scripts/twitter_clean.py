@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-# This program cleans the original Twitter data by adding tags, removing a number of 
-# automatically generated tweets, and removing duplicate tweets.
-# It also removes short tweets and users with a small number of tweets.
-# Currently the length of a tweet is at least 10 parts and 
-# a user has to have at least 10 tweets
+'''
+This program cleans the original Twitter data by adding tags, removing a number of 
+automatically generated tweets, and removing duplicate tweets.
+It also removes short tweets and users with a small number of tweets.
+Currently the length of a tweet is at least 10 parts and 
+a user has to have at least 10 tweets
+'''
 
 import re
 import pandas as pd

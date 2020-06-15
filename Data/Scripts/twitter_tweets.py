@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-# This program uses csv files containing Twitter usernames and number of statuses.
-# It first removes duplicates from these files, and filters out users based on 
-# the number of statuses and the total number of users wanted. For every remaining 
-# user it then scrapes tweets from the timeline (excluding retweets and replies) 
-# and writes these to a csv file.
-# Currently limited to 250 users per gender and up to 250 tweets per user.
+'''
+This program uses csv files containing Twitter usernames and number of statuses.
+It first removes duplicates from these files, and filters out users based on 
+the number of statuses and the total number of users wanted. For every remaining 
+user it then scrapes tweets from the timeline (excluding retweets and replies) 
+and writes these to a csv file.
+Currently limited to 250 users per gender and up to 250 tweets per user.
+'''
 
 import csv
 import time

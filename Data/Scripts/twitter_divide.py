@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-# This program splits the cleaned Twitter data into train/validation/test sets by
-# dividing the dataframes based on usernames, dividing those groups into even chunks
-# of a number of rows and combining the tweets in those rows. From this new dataframes
-# are created with rows consisting of username, list of tweets, and gender. These data-
-# frames are then split up into train/validation/test sets.
-# Currently limited to chunks of about 5 rows and train/validation/test of 60/20/20 
+'''
+This program splits the cleaned Twitter data into train/validation/test sets by
+dividing the dataframes based on usernames, dividing those groups into even chunks
+of a number of rows and combining the tweets in those rows. From this new dataframes
+are created with rows consisting of username, list of tweets, and gender. These data-
+frames are then split up into train/validation/test sets.
+Currently limited to chunks of about 5 rows and train/validation/test of 60/20/20 
+'''
 
 import numpy as np
 import pandas as pd

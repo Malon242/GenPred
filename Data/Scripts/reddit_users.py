@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-# This program searches for Reddit submissions which include the gender keywords provided
-# in the query. It then writes the author's name, submission title, and submission text
-# to a csv file. 
-# Currently limited to at most 500 submissions per gender, not filtered, duplicate possible
+'''
+This program searches for Reddit submissions which include the gender keywords provided
+in the query. It then writes the author's name, submission title, and submission text
+to a csv file. 
+Currently limited to at most 500 submissions per gender, not filtered, duplicate possible
+'''
 
 import csv
 import praw

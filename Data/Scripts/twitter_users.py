@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-# This program searches for non-binary, male, and female twitter users, who have 
-# explicitely stated their pronouns in their username. The usernames and status count
-# are written to a textfile corresponding to the selfproclaimed gender of the user.
-# Currently limited to a 1000 usernames per gender, duplicates possible
+'''
+This program searches for non-binary, male, and female twitter users, who have 
+explicitely stated their pronouns in their username. The usernames and status count
+are written to a textfile corresponding to the selfproclaimed gender of the user.
+Currently limited to a 1000 usernames per gender, duplicates possible
+'''
 
 import tweepy
 
