@@ -26,9 +26,9 @@ def clean_tweet(tweet):
 	tweet = re.sub(r"https://t.co/\w+", '<LINK>', tweet) # Replace links with <LINK> tag
 	tweet = re.sub(r"@\w+", '<USER> ', tweet) # Replace @user with <USER> tag
 	tweet = re.sub(r"😺✏ — ((?s).*?)<LINK>", r"<CATASK> \1", tweet) # Add a tag to CuriousCat answers
-	tweet = re.sub(r"\[ID(.*?)\]", '<PICDESC>', tweet, flags=re.I) 
-	tweet = re.sub(r"\[alt(.*?)\]", '<PICDESC>', tweet, flags=re.I)
-	tweet = re.sub(r"\[desc(.*?)\]", '<PICDESC>', tweet, flags=re.I)
+	tweet = re.sub(r"\[ID(.*?)\]", '<DESCRIPTION>', tweet, flags=re.I) 
+	tweet = re.sub(r"\[alt(.*?)\]", '<DESCRIPTION>', tweet, flags=re.I)
+	tweet = re.sub(r"\[desc(.*?)\]", '<DESCRIPTION>', tweet, flags=re.I)
 
 	# Replace automatically generated text and short tweets with None
 	to_be_removed = ['My week on Twitter', 'My fitbit #Fitstats', 'biggest fans this week',
