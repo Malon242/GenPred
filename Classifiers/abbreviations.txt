@@ -38,6 +38,7 @@
 
 	"dae": "Does anyone else ... ?",
 	"dgaf": "Don't give a fuck",
+	"dilf": "Dad I would like to fuck",
 	"dm": "Direct Message",
 	"dm;hs": "Doesn't matter; had sex",
 	"dyk": "Did you know",
@@ -127,6 +128,7 @@
 
 	"mcm": "Man crush monday",
 	"mfw": "My face when",
+	"milf": "Mom I would like to fuck",
 	"mm": "Music monday",
 	"mod": "Moderator",
 	"mrw": "My reaction when",
@@ -203,6 +205,7 @@
 	"tf": "The fuck",
 	"tfw": "That feeling when",
 	"tgif": "Thank god it's friday",
+	"thot": "That hoe over there",
 	"thx": "Thanks",
 	"tifu": "Today I fucked up",
 	"til": "Today I learned",
@@ -217,8 +220,10 @@
 	"ty": "Thank you",
 	"tyvm": "Thank you very much",
 
+	"u": "You",
 	"u2": ["Band", "You too"],
 	"ui": "User interface",
+	"ur": ["Your", "You are"],
 	"url": "Uniform Resource Locator",
 	"ux": "User experience",
 
