@@ -27,7 +27,7 @@ def combine(df):
 	"""Divide dataframe into groups based on username. Divide those groups into even
 	chunks of 4 rows (remainder is added to the first few chunks by 1). Combine submissions
 	per chunk in a list and create new dataframe of usernames and combined submissions"""
-	header = ['username', 'submissions', 'gender']
+	header = ['username', 'posts', 'gender']
 	df_list = []
 
 	df_grouped = df.groupby('username')

@@ -28,7 +28,7 @@ def combine(df):
 	"""Divide dataframe into groups based on username. Divide those groups into even
 	chunks of 5 rows (remainder is added to the first few chunks by 1). Combine tweets
 	per chunk in a list and create new dataframe of usernames and combined tweets"""
-	header = ['username', 'tweets', 'gender']
+	header = ['username', 'posts', 'gender']
 	df_list = []
 
 	df_grouped = df.groupby('username')
