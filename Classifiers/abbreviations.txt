@@ -20,7 +20,7 @@
 	"bff": "Best Friends Forever",
 	"brb": "Be Right Back",
 	"btaim": "Be that as it may",
-	"bts": ["Behind the scenes", "Bangtan boys"]
+	"bts": ["Behind the scenes", "Bangtan boys"],
 	"btw": "By the way",
 
 	"cc": "Carbon copy",
@@ -46,7 +46,7 @@
 	"eli5": "Explain like I'm 5",
 
 	"f2f": "Face to face",
-	"fam", "Family",
+	"fam": "Family",
 	"faq": "Frequently asked questions",
 	"fb": ["Facebook", "Follow back"],
 	"fbf": "Flashback Friday",
@@ -91,7 +91,7 @@
 	"icyww": "In case you were wondering",
 	"idc": "I don't care",
 	"idfk": "I don't fucking know",
-	"idgaf": "I don't give a fuck"
+	"idgaf": "I don't give a fuck",
 	"idk": "I don't know",
 	"ig": ["Instagram", "I guess"],
 	"iirc": "If i recall correctly",
@@ -168,7 +168,7 @@
 	"plz": "Please",
 	"pm": "Private message",
 	"poidh": "Picture or it didn't happen",
-	"pos": "Piece of shit"
+	"pos": "Piece of shit",
 	"potd": "Photo of the day",
 	"pov": "Point of view",
 	"ppc": "Pay per click",
@@ -215,7 +215,7 @@
 	"ttyl": "Talk to you later",
 	"ttyn": "Talk to you never",
 	"ttys": "Talk to you soon",
-	"tw": "Twitter"
+	"tw": ["Twitter", "Trigger warning"],
 	"txt": "Text",
 	"ty": "Thank you",
 	"tyvm": "Thank you very much",
