@@ -34,7 +34,6 @@ def read_data():
 
 def preprocess(df):
 	"""Preprocess the data frame: add label column, change some formatting"""
-	df['label'] = df['gender'].apply(lambda x: 1 if x == 'F' else 0)
 	df['posts'] = df['posts'].apply(lambda x: [re.sub(r"#\w+", '<HASHTAG>', i) for i in x])
 	df['posts'] = df['posts'].apply(lambda x: [re.sub("&amp;", '&', i) for i in x])
 	df['posts'] = df['posts'].apply(lambda x: [re.sub("\xa0", ' ', i) for i in x])
@@ -48,13 +47,13 @@ def preprocess(df):
 def baseline(data):
 	"""Get baseline accuracy using a dummy classifier"""
 	dum = DummyClassifier(strategy='most_frequent', random_state=1)
-	dum.fit(data[0]['posts'], data[0]['label'])
+	dum.fit(data[0]['posts'], data[0]['gender'])
 	pred = dum.predict(data[1]['posts'])
 
 	print("----------BASELINE-----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred)))
+	print("Accuracy score: {}\n".format(accuracy_score(data[1]['gender'], pred)))
 	print("Classification report:")
-	print(classification_report(data[1]['label'], pred))
+	print(classification_report(data[1]['gender'], pred))
 	print("----------------------------")
 
 
@@ -182,7 +181,7 @@ def main():
 		df = features(df, nlp, prof_lst, abbrev_lst)
 
 	# Baseline
-	print("----------TWITTER FEMALE----------")
+	print("----------TWITTER MULTICLASS----------")
 	baseline(data)
 
 	# Classifiers
@@ -209,13 +208,13 @@ def main():
 			#('profavg', MinMaxScaler(), ['prof_avg']),
 			], remainder='drop')),
 		('clf', svm.LinearSVC())])
-	model1 = pipeline1.fit(data[0], data[0]['label'])
+	model1 = pipeline1.fit(data[0], data[0]['gender'])
 	pred1 = model1.predict(data[1])
 
 	print("\n\n----------SVM LINEARSVC-----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred1)))
+	print("Accuracy score: {}\n".format(accuracy_score(data[1]['gender'], pred1)))
 	print("Classification report:")
-	print(classification_report(data[1]['label'], pred1))
+	print(classification_report(data[1]['gender'], pred1))
 	print("----------------------------------")
 
 
@@ -242,13 +241,13 @@ def main():
 			#('profavg', MinMaxScaler(), ['prof_avg']),
 			], remainder='drop')),
 		('clf', LogisticRegression())])
-	model2 = pipeline2.fit(data[0], data[0]['label'])
+	model2 = pipeline2.fit(data[0], data[0]['gender'])
 	pred2 = model2.predict(data[1])
 
 	print("\n\n----------LOGISTIC REGRESSION-----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
+	print("Accuracy score: {}\n".format(accuracy_score(data[1]['gender'], pred2)))
 	print("Classification report:")
-	print(classification_report(data[1]['label'], pred2))
+	print(classification_report(data[1]['gender'], pred2))
 	print("----------------------------------------")
 
 

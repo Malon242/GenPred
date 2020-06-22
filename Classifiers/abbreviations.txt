@@ -41,6 +41,7 @@
 	"dilf": "Dad I would like to fuck",
 	"dm": "Direct Message",
 	"dm;hs": "Doesn't matter; had sex",
+	"dw": "Don't worry",
 	"dyk": "Did you know",
 
 	"eli5": "Explain like I'm 5",
