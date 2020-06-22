@@ -23,7 +23,7 @@ def read_data():
 def clean_tweet(tweet):
 	"""Clean tweets by replacing links and @'s with tags 
 	and removing common automatically generated tweets"""
-	tweet = re.sub(r"https://t.co/\w+", '<LINK>', tweet) # Replace links with <LINK> tag
+	tweet = re.sub(r"\bhttps?:\/\/\S+\b", '<LINK>', tweet) # Replace links with <LINK> tag
 	tweet = re.sub(r"@\w+", '<USER> ', tweet) # Replace @user with <USER> tag
 	tweet = re.sub(r"😺✏ — ((?s).*?)<LINK>", r"<CATASK> \1", tweet) # Add a tag to CuriousCat answers
 	tweet = re.sub(r"\[ID(.*?)\]", '<DESCRIPTION>', tweet, flags=re.I) 
