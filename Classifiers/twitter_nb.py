@@ -121,24 +121,17 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['comb_posts'] = df['posts'].apply(lambda x: ' '.join(x))
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
-	# Length
-	df['length_tot'] = df['comb_posts'].apply(lambda x: len(x.split()))
-	df['length_avg'] = df['length_tot']/df['length']
-
 	# Emojis
 	df['emoji_tot'] = df['comb_posts'].apply(lambda x: len([char for char in x if char in emoji.UNICODE_EMOJI]))
 	
 	# Case
-	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
 	df['upper_avg'] = df['upper_tot']/df['length']
-	df['lower_tot'] = df['comb_posts'].apply(lambda x: len(re.findall(r'[a-z]', x)))
 	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—'
 	df['punct_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('[{}]'.format(punct),x)))
 	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))
-	df['newline_avg'] = df['newline_tot']/df['length']
-
+	
 	# POS tags
 	tags = ['<LINK>', '<USER>', '<HASHTAG>', '<DESCRIPTION>', '<CATASK>', '<SUBREDDIT>',
 	'<QUOTE>', '<SUMMARY>', '<BOLD-ITALIC>', '<BOLD>', '<ITALIC>', '<STRIKE>', '<SPOILER>',
@@ -183,7 +176,7 @@ def main():
 	model1 = pipeline1.fit(data[0], data[0]['label'])
 	pred1 = model1.predict(data[1])
 
-	print("\n\n----------SVM LINEARSVC UPPER TOT-----------")
+	print("\n\n----------SVM LINEARSVC-----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred1)))
 	print("Classification report:")
 	print(classification_report(data[1]['label'], pred1))
@@ -200,7 +193,7 @@ def main():
 	model2 = pipeline2.fit(data[0], data[0]['label'])
 	pred2 = model2.predict(data[1])
 
-	print("\n\n----------LOGISTIC REGRESSION LEN TOT-----------")
+	print("\n\n----------LOGISTIC REGRESSION-----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
 	print("Classification report:")
 	print(classification_report(data[1]['label'], pred2))
