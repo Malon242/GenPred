@@ -163,7 +163,7 @@ def main():
 
 	# Baseline
 	print("----------TWITTER FEMALE----------")
-	#baseline(data)
+	baseline(data)
 
 	# Classifiers
 	pipeline1 = Pipeline([
