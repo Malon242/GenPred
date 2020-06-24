@@ -200,9 +200,6 @@ def main():
 	print(classification_report(data[1]['gender'], pred2))
 	print("----------------------------------------")
 
-	
-
-
 
 if __name__ == '__main__':
 	main()
