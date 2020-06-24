@@ -121,37 +121,17 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['comb_posts'] = df['posts'].apply(lambda x: ' '.join(x))
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
-	# Length
-	df['char_length_tot'] = df['comb_posts'].apply(len)
-	df['char_length_avg'] = df['char_length_tot']/df['length']
-	df['length_tot'] = df['comb_posts'].apply(lambda x: len(x.split()))
-	df['length_avg'] = df['length_tot']/df['length']
-
 	# Emojis
 	df['emoji_tot'] = df['comb_posts'].apply(lambda x: len([char for char in x if char in emoji.UNICODE_EMOJI]))
-	df['emoji_avg'] = df['emoji_tot']/df['length']
-
+	
 	# Case
 	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
-	df['upper_avg'] = df['upper_tot']/df['length']
-	df['lower_tot'] = df['comb_posts'].apply(lambda x: len(re.findall(r'[a-z]', x)))
-	df['lower_avg'] = df['lower_tot']/df['length']
-
+	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—'
 	df['punct_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('[{}]'.format(punct),x)))
-	df['punct_avg'] = df['punct_tot']/df['length']
 	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))
-	df['newline_avg'] = df['newline_tot']/df['length']
-
-	# Repetition
-	df['rep_tot'] = df['comb_posts'].apply(lambda x: len(re.findall(r"([aeiouy!?.])\1{2,}",x, flags=re.I)))
-	df['rep_avg'] = df['rep_tot']/df['length']
-
-	# Profanity
-	df['prof_tot'] = df['no_rep'].apply(lambda x: len(re.findall(r"\b({})\b".format('|'.join(prof_lst)), x, flags=re.I)))
-	df['prof_avg'] = df['prof_tot']/df['length']
-
+	
 	# POS tags
 	tags = ['<LINK>', '<USER>', '<HASHTAG>', '<DESCRIPTION>', '<CATASK>', '<SUBREDDIT>',
 	'<QUOTE>', '<SUMMARY>', '<BOLD-ITALIC>', '<BOLD>', '<ITALIC>', '<STRIKE>', '<SPOILER>',
@@ -183,30 +163,14 @@ def main():
 
 	# Baseline
 	print("----------TWITTER FEMALE----------")
-	baseline(data)
+	#baseline(data)
 
 	# Classifiers
 	pipeline1 = Pipeline([
 		('union', ColumnTransformer([
-			('vecword', TfidfVectorizer(ngram_range = (1,1), analyzer='word', token_pattern=r'\S+'), 'tagged'),
-			#('charlentot', MinMaxScaler(), ['char_length_tot']),
-			#('charlenavg', MinMaxScaler(), ['char_length_avg']),
-			#('lentot', MinMaxScaler(), ['length_tot']),
-			#('lenavg', MinMaxScaler(), ['length_avg']),
-			#('emotot', MinMaxScaler(), ['emoji_tot']),
-			#('emoavg', MinMaxScaler(), ['emoji_avg']),
-			#('uptot', MinMaxScaler(), ['upper_tot']),
-			#('upavg', MinMaxScaler(), ['upper_avg']),
-			#('lowtot', MinMaxScaler(), ['lower_tot']),
-			#('lowavg', MinMaxScaler(), ['lower_avg']),
-			#('puncttot', MinMaxScaler(), ['punct_tot']),
-			#('punctavg', MinMaxScaler(), ['punct_avg']),
-			#('newtot', MinMaxScaler(), ['newline_tot']),
-			#('newavg', MinMaxScaler(), ['newline_avg']),
-			#('reptot', MinMaxScaler(), ['rep_tot']),
-			#('repavg', MinMaxScaler(), ['rep_avg']),
-			#('proftot', MinMaxScaler(), ['prof_tot']),
-			#('profavg', MinMaxScaler(), ['prof_avg']),
+			('vecword', TfidfVectorizer(ngram_range = (1,3), analyzer='word', token_pattern=r'\S+'), 'tagged'),
+			('uptot', MinMaxScaler(), ['upper_tot']),
+			('newtot', MinMaxScaler(), ['newline_tot']),
 			], remainder='drop')),
 		('clf', svm.LinearSVC())])
 	model1 = pipeline1.fit(data[0], data[0]['label'])
@@ -218,34 +182,18 @@ def main():
 	print(classification_report(data[1]['label'], pred1))
 	print("----------------------------------")
 
-
 	pipeline2 = Pipeline([
 		('union', ColumnTransformer([
-			('vecword', TfidfVectorizer(ngram_range = (1,1), analyzer='word', token_pattern=r'\S+'), 'tagged'),
-			#('charlentot', MinMaxScaler(), ['char_length_tot']),
-			#('charlenavg', MinMaxScaler(), ['char_length_avg']),
-			#('lentot', MinMaxScaler(), ['length_tot']),
-			#('lenavg', MinMaxScaler(), ['length_avg']),
-			#('emotot', MinMaxScaler(), ['emoji_tot']),
-			#('emoavg', MinMaxScaler(), ['emoji_avg']),
-			#('uptot', MinMaxScaler(), ['upper_tot']),
-			#('upavg', MinMaxScaler(), ['upper_avg']),
-			#('lowtot', MinMaxScaler(), ['lower_tot']),
-			#('lowavg', MinMaxScaler(), ['lower_avg']),
-			#('puncttot', MinMaxScaler(), ['punct_tot']),
-			#('punctavg', MinMaxScaler(), ['punct_avg']),
-			#('newtot', MinMaxScaler(), ['newline_tot']),
-			#('newavg', MinMaxScaler(), ['newline_avg']),
-			#('reptot', MinMaxScaler(), ['rep_tot']),
-			#('repavg', MinMaxScaler(), ['rep_avg']),
-			#('proftot', MinMaxScaler(), ['prof_tot']),
-			#('profavg', MinMaxScaler(), ['prof_avg']),
+			('vecword', TfidfVectorizer(ngram_range = (1,3), analyzer='word', token_pattern=r'\S+'), 'tagged'),
+			('emotot', MinMaxScaler(), ['emoji_tot']),
+			('puncttot', MinMaxScaler(), ['punct_tot']),
+			('newtot', MinMaxScaler(), ['newline_tot']),
 			], remainder='drop')),
-		('clf', LogisticRegression())])
+		('clf', LogisticRegression(max_iter=10000))])
 	model2 = pipeline2.fit(data[0], data[0]['label'])
 	pred2 = model2.predict(data[1])
 
-	print("\n\n----------LOGISTIC REGRESSION-----------")
+	print("\n\n----------LOGISTIC REGRESSION CHAR-----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
 	print("Classification report:")
 	print(classification_report(data[1]['label'], pred2))
