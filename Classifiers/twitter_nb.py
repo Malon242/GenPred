@@ -125,6 +125,7 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['emoji_tot'] = df['comb_posts'].apply(lambda x: len([char for char in x if char in emoji.UNICODE_EMOJI]))
 	
 	# Case
+	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
 	df['upper_avg'] = df['upper_tot']/df['length']
 	
 	# Punctuation
