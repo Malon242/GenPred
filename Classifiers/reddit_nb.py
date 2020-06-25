@@ -53,9 +53,7 @@ def baseline(data):
 
 	print("----------BASELINE-----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred)))
-	print("Classification report:")
-	print(classification_report(data[1]['label'], pred))
-	print("----------------------------")
+	print("-----------------------------")
 
 
 def add_cases(nlp):
@@ -160,6 +158,7 @@ def main():
 	# Baseline
 	print("----------REDDIT NON-BINARY----------")
 	baseline(data)
+	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10, 50, 100, 500, 1000]}]
 
 	# Classifiers
 	pipeline1 = Pipeline([
@@ -168,14 +167,21 @@ def main():
 			('charlentot', MinMaxScaler(), ['char_length_tot']),
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			], remainder='drop')),
-		('clf', svm.LinearSVC())])
-	model1 = pipeline1.fit(data[0], data[0]['label'])
-	pred1 = model1.predict(data[1])
+		('clf', svm.LinearSVC(max_iter=10000))])
+#	model1 = pipeline1.fit(data[0], data[0]['label'])
+#	pred1 = model1.predict(data[1])
+
 
 	print("\n\n----------SVM LINEARSVC-----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred1)))
-	print("Classification report:")
-	print(classification_report(data[1]['label'], pred1))
+	grid_svc = GridSearchCV(pipeline1, parameters, scoring='accuracy', cv=5)
+	grid_svc.fit(data[0], data[0]['label'])
+	print("Best parameter score: %0.4f" % grid_svc.best_score_)
+	print("Best parameters:")
+	print(grid_svc.best_params_)
+
+#	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred1)))
+#	print("Classification report:")
+#	print(classification_report(data[1]['label'], pred1))
 	print("----------------------------------")
 
 
@@ -185,20 +191,21 @@ def main():
 			('charlentot', MinMaxScaler(), ['char_length_tot']),
 			], remainder='drop')),
 		('clf', LogisticRegression(max_iter=10000))])
-	model2 = pipeline2.fit(data[0], data[0]['label'])
-	pred2 = model2.predict(data[1])
+#	model2 = pipeline2.fit(data[0], data[0]['label'])
+#	pred2 = model2.predict(data[1])
 
 	print("\n\n----------LOGISTIC REGRESSION-----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
-	print("Classification report:")
-	print(classification_report(data[1]['label'], pred1))
-	print("----------------------------------")
+	grid_log = GridSearchCV(pipeline2, parameters, scoring='accuracy', cv=5)
+	grid_log.fit(data[0], data[0]['label'])
+	print("Best parameter score: %0.4f" % grid_log.best_score_)
+	print("Best parameters:")
+	print(grid_log.best_params_)
+
+#	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
+#	print("Classification report:")
+#	print(classification_report(data[1]['label'], pred2))
+	print("----------------------------------------")
 
 
 if __name__ == '__main__':
 	main()
-
-
-
-
-
