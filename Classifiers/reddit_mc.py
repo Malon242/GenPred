@@ -119,6 +119,7 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
 	# Length
+	df['char_length_tot'] = df['comb_posts'].apply(len)
 	df['char_length_avg'] = df['char_length_tot']/df['length']
 	
 	# Punctuation
@@ -158,7 +159,7 @@ def main():
 	# Baseline
 	print("----------REDDIT MULTICLASS----------")
 	baseline(data)
-	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10, 50, 100, 500, 1000]}]
+	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10]}]
 
 	# Classifiers
 	pipeline1 = Pipeline([
@@ -167,7 +168,7 @@ def main():
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			('newavg', MinMaxScaler(), ['newline_avg']),
 			], remainder='drop')),
-		('clf', svm.LinearSVC(max_iter=10000))])
+		('clf', svm.LinearSVC(max_iter=100000, C=1.0))])
 #	model1 = pipeline1.fit(data[0], data[0]['gender'])
 #	pred1 = model1.predict(data[1])
 
@@ -191,7 +192,7 @@ def main():
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			('newavg', MinMaxScaler(), ['newline_avg']),
 			], remainder='drop')),
-		('clf', LogisticRegression(max_iter=10000))])
+		('clf', LogisticRegression(max_iter=100000, C=10))])
 #	model2 = pipeline2.fit(data[0], data[0]['gender'])
 #	pred2 = model2.predict(data[1])
 

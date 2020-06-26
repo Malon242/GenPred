@@ -159,7 +159,7 @@ def main():
 	# Baseline
 	print("----------TWITTER MALE----------")
 	baseline(data)
-	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10, 50, 100, 500, 1000]}]
+	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10]}]
 
 	# Classifiers
 	pipeline1 = Pipeline([
@@ -168,7 +168,7 @@ def main():
 			('uptot', MinMaxScaler(), ['upper_tot']),
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			], remainder='drop')),
-		('clf', svm.LinearSVC(max_iter=10000))])
+		('clf', svm.LinearSVC(max_iter=100000, C=0.1))])
 #	model1 = pipeline1.fit(data[0], data[0]['label'])
 #	pred1 = model1.predict(data[1])
 
@@ -191,7 +191,7 @@ def main():
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			('newavg', MinMaxScaler(), ['newline_avg']),
 			], remainder='drop')),
-		('clf', LogisticRegression(max_iter=10000))])
+		('clf', LogisticRegression(max_iter=100000, C=5.0))])
 #	model2 = pipeline2.fit(data[0], data[0]['label'])
 #	pred2 = model2.predict(data[1])
 
