@@ -18,19 +18,17 @@ from sklearn.pipeline import Pipeline
 from sklearn.dummy import DummyClassifier
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import GridSearchCV
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 def read_data():
 	"""Read csv files"""
 	train = pd.read_csv('../Data/Final Data/r_train.csv', converters={'posts':literal_eval})
-	#val = pd.read_csv('../Data/Final Data/r_validation.csv', converters={'posts':literal_eval})
+	val = pd.read_csv('../Data/Final Data/r_validation.csv', converters={'posts':literal_eval})
 	test = pd.read_csv('../Data/Final Data/r_test.csv', converters={'posts':literal_eval})
 	test_tw = pd.read_csv('../Data/Final Data/tw_test.csv', converters={'posts':literal_eval})
 	
-	return [train, test, test_tw]
+	return [train, test, test_tw, val]
 
 
 def preprocess(df):
@@ -94,6 +92,7 @@ def tagger(txt, nlp, tags, abbrev_lst, punct_lst, prof_lst):
 	"""Change most tokens to their corresponding pos tag, except for puctuation,
 	pronouns and emojis. Use a custom tag for abbreviations and profanity"""
 	doc = nlp(txt)
+	tag_list = ['NOUN', 'PROPN', 'VERB', 'AUX', 'NUM', 'PART']
 
 	new_doc = []
 	for token in doc:
@@ -105,10 +104,14 @@ def tagger(txt, nlp, tags, abbrev_lst, punct_lst, prof_lst):
 			new_doc.append("PROFANITY")
 		elif token.pos_ == "PRON":
 			new_doc.append(token.text)
+		elif token.pos_ == "INTJ":
+			new_doc.append(token.text)
 		elif token.text in emoji.UNICODE_EMOJI:
 			new_doc.append(token.text)
-		else:
+		elif token.pos in tag_list:
 			new_doc.append(token.pos_)
+		else:
+			new_doc.append(token.text)
 	
 	return ' '.join(new_doc)
 
@@ -124,7 +127,7 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['char_length_avg'] = df['char_length_tot']/df['length']
 	
 	# Punctuation
-	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—'
+	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'
 	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))
 	df['newline_avg'] = df['newline_tot']/df['length']
 
@@ -160,7 +163,6 @@ def main():
 	# Baseline
 	print("----------REDDIT MULTICLASS----------")
 	baseline(data)
-	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10]}]
 	labels = ['F', 'M', 'NB']
 
 	# Classifier
@@ -173,20 +175,44 @@ def main():
 		('clf', svm.LinearSVC(max_iter=100000, C=1.0))])
 	model = pipeline.fit(data[0], data[0]['gender'])
 
+	# Coefficient with feature names (most important features)
+	feature_names = model['union'].transformers_[0][1].get_feature_names() + ['puncttot', 'newtot']
+	top_features = pd.Series(abs(model.named_steps['clf'].coef_[0]), index=feature_names).nlargest(20)
+
+	# Validation
+	pred_val = model.predict(data[3])
+
 	# Reddit
 	pred = model.predict(data[1])
 	cm = confusion_matrix(data[1]['gender'], pred, labels=labels)
+	r_results = data[1][['username', 'gender']].copy()
+	r_results['prediction'] = pred
+	r_results.to_csv("../Results/r_mc.csv", index=False)
 
 	# Twitter
 	pred_tw = model.predict(data[2])
 	cm_tw = confusion_matrix(data[2]['gender'], pred_tw, labels=labels)
+	tw_results = data[2][['username', 'gender']].copy()
+	tw_results['prediction'] = pred_tw
+	tw_results.to_csv("../Results/tw_r_mc.csv", index=False)
+
+	# Print results
+	print("\n----------TOP FEATURES----------\n")
+	print(top_features)
+	print("--------------------------------")
 
 	print("\n\n----------SVM LINEARSVC-----------\n")
+	print("----------VALIDATION----------")
+	print("Accuracy score: {}\n".format(accuracy_score(data[3]['gender'], pred_val)))
+	print("---------------------------\n")
+
 	print("----------REDDIT----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['gender'], pred)))
 	print("Classification report:")
 	print(classification_report(data[1]['gender'], pred))
 	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm, index=labels, columns=labels)))
+	print("\n\nWrong prediction sample:")
+	print(r_results[r_results.gender != r_results.prediction].sample(5, random_state=1))
 	print("--------------------------")
 
 	print("\n----------TWITTER----------")
@@ -194,10 +220,11 @@ def main():
 	print("Classification report:")
 	print(classification_report(data[2]['gender'], pred_tw))
 	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm_tw, index=labels, columns=labels)))
+	print("\n\nWrong prediction sample:")
+	print(tw_results[tw_results.gender != tw_results.prediction].sample(5, random_state=1))
 	print("---------------------------")
 	print("--------------------------------------")
 
-	
 	
 if __name__ == '__main__':
 	main()
