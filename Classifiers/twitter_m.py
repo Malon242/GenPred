@@ -26,15 +26,16 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 def read_data():
 	"""Read csv files"""
 	train = pd.read_csv('../Data/Final Data/tw_train.csv', converters={'posts':literal_eval})
-	val = pd.read_csv('../Data/Final Data/tw_validation.csv', converters={'posts':literal_eval})
+	#val = pd.read_csv('../Data/Final Data/tw_validation.csv', converters={'posts':literal_eval})
 	test = pd.read_csv('../Data/Final Data/tw_test.csv', converters={'posts':literal_eval})
+	test_r = pd.read_csv('../Data/Final Data/r_test.csv', converters={'posts':literal_eval})
 	
-	return [train, val, test]
+	return [train, test, test_r]
 
 
 def preprocess(df):
 	"""Preprocess the data frame: add label column, change some formatting"""
-	df['label'] = df['gender'].apply(lambda x: 1 if x == 'M' else 0)
+	df['label'] = df['gender'].apply(lambda x: 'M' if x == 'M' else 'NOT M')
 	df['posts'] = df['posts'].apply(lambda x: [re.sub(r"#\w+", '<HASHTAG>', i) for i in x])
 	df['posts'] = df['posts'].apply(lambda x: [re.sub("&amp;", '&', i) for i in x])
 	df['posts'] = df['posts'].apply(lambda x: [re.sub("\xa0", ' ', i) for i in x])
@@ -160,52 +161,41 @@ def main():
 	print("----------TWITTER MALE----------")
 	baseline(data)
 	parameters = [{'clf__C': [0.1, 0.5, 1.0, 5.0, 10]}]
+	labels = ['M', 'NOT M']
 
-	# Classifiers
-	pipeline1 = Pipeline([
-		('union', ColumnTransformer([
-			('vecword', TfidfVectorizer(ngram_range = (1,3), analyzer='word', token_pattern=r'\S+'), 'tagged'),
-			('uptot', MinMaxScaler(), ['upper_tot']),
-			('newtot', MinMaxScaler(), ['newline_tot']),
-			], remainder='drop')),
-		('clf', svm.LinearSVC(max_iter=100000, C=0.1))])
-#	model1 = pipeline1.fit(data[0], data[0]['label'])
-#	pred1 = model1.predict(data[1])
-
-
-	print("\n\n----------SVM LINEARSVC-----------")
-	grid_svc = GridSearchCV(pipeline1, parameters, scoring='accuracy', cv=5)
-	grid_svc.fit(data[0], data[0]['label'])
-	print("Best parameter score: %0.4f" % grid_svc.best_score_)
-	print("Best parameters:")
-	print(grid_svc.best_params_)
-
-#	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred1)))
-#	print("Classification report:")
-#	print(classification_report(data[1]['label'], pred1))
-	print("----------------------------------")
-
-	pipeline2 = Pipeline([
+	# Classifier
+	pipeline = Pipeline([
 		('union', ColumnTransformer([
 			('vecword', TfidfVectorizer(ngram_range = (1,2), analyzer='word', token_pattern=r'\S+'), 'tagged'),
 			('newtot', MinMaxScaler(), ['newline_tot']),
 			('newavg', MinMaxScaler(), ['newline_avg']),
 			], remainder='drop')),
 		('clf', LogisticRegression(max_iter=100000, C=5.0))])
-#	model2 = pipeline2.fit(data[0], data[0]['label'])
-#	pred2 = model2.predict(data[1])
+	model = pipeline.fit(data[0], data[0]['label'])
+	
+	# Twitter
+	pred = model.predict(data[1])
+	cm = confusion_matrix(data[1]['label'], pred, labels=labels)
 
-	print("\n\n----------LOGISTIC REGRESSION-----------")
-	grid_log = GridSearchCV(pipeline2, parameters, scoring='accuracy', cv=5)
-	grid_log.fit(data[0], data[0]['label'])
-	print("Best parameter score: %0.4f" % grid_log.best_score_)
-	print("Best parameters:")
-	print(grid_log.best_params_)
+	# Reddit
+	pred_r = model.predict(data[2])
+	cm_r = confusion_matrix(data[2]['label'], pred_r, labels=labels)
 
-#	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred2)))
-#	print("Classification report:")
-#	print(classification_report(data[1]['label'], pred2))
-	print("----------------------------------------")
+	print("\n\n----------LOGISTIC REGRESSION-----------\n")
+	print("----------TWITTER----------")
+	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred)))
+	print("Classification report:")
+	print(classification_report(data[1]['label'], pred))
+	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm, index=labels, columns=labels)))
+	print("---------------------------")
+
+	print("\n----------REDDIT----------")
+	print("Accuracy score: {}\n".format(accuracy_score(data[2]['label'], pred_r)))
+	print("Classification report:")
+	print(classification_report(data[2]['label'], pred_r))
+	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm_r, index=labels, columns=labels)))
+	print("--------------------------")
+	print("--------------------------------------")
 
 
 if __name__ == '__main__':
