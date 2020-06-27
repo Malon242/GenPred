@@ -109,7 +109,7 @@ def tagger(txt, nlp, tags, abbrev_lst, punct_lst, prof_lst):
 			new_doc.append(token.text)
 		elif token.text in emoji.UNICODE_EMOJI:
 			new_doc.append(token.text)
-		elif token.pos in tag_list:
+		elif token.pos_ in tag_list:
 			new_doc.append(token.pos_)
 		else:
 			new_doc.append(token.text)
