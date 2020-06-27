@@ -180,7 +180,7 @@ def main():
 	model = pipeline.fit(data[0], data[0]['label'])
 
 	# Coefficient with feature names (most important features)
-	feature_names = model['union'].transformers_[0][1].get_feature_names() + ['puncttot', 'newtot']
+	feature_names = model['union'].transformers_[0][1].get_feature_names() + ['emotot', 'puncttot', 'newtot']
 	top_features = pd.Series(abs(model.named_steps['clf'].coef_[0]), index=feature_names).nlargest(20)
 
 	# Validation

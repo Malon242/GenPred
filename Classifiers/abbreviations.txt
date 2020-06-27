@@ -130,6 +130,7 @@
 	"mcm": "Man crush monday",
 	"mfw": "My face when",
 	"milf": "Mom I would like to fuck",
+	"mima": "Majority in most aspects",
 	"mm": "Music monday",
 	"mod": "Moderator",
 	"mrw": "My reaction when",
