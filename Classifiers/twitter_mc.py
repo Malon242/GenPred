@@ -181,40 +181,47 @@ def main():
 
 	# Coefficient with feature names (most important features)
 	feature_names = model['union'].transformers_[0][1].get_feature_names() + ['uptot', 'newtot', 'newavg', 'reptot']
-	top_features = pd.Series(abs(model.named_steps['clf'].coef_[0]), index=feature_names).nlargest(20)
+	top_features_f = pd.DataFrame(model.named_steps['clf'].coef_[0], index=feature_names, columns=['coef'])
+	top_features_f = top_features_f.reindex(top_features_f.coef.abs().sort_values(ascending=False).index)	
+	top_features_m = pd.DataFrame(model.named_steps['clf'].coef_[1], index=feature_names, columns=['coef'])
+	top_features_m = top_features_m.reindex(top_features_m.coef.abs().sort_values(ascending=False).index)
+	top_features_nb = pd.DataFrame(model.named_steps['clf'].coef_[2], index=feature_names, columns=['coef'])
+	top_features_nb = top_features_nb.reindex(top_features_nb.coef.abs().sort_values(ascending=False).index)
 
 	# Validation
 	pred_val = model.predict(data[3])
 	
 	# Twitter
 	pred = model.predict(data[1])
-	cm = confusion_matrix(data[1]['gender'], pred, labels=labels)
+	cm = pd.crosstab(pd.Series(data[1]['gender'], name='Actual'), pd.Series(pred, name='Predicted'))
 	tw_results = data[1][['username', 'gender']].copy()
 	tw_results['prediction'] = pred
 	tw_results.to_csv("../Results/tw_mc.csv", index=False)
 
 	# Reddit
 	pred_r = model.predict(data[2])
-	cm_r = confusion_matrix(data[2]['gender'], pred_r, labels=labels)
+	cm_r = pd.crosstab(pd.Series(data[2]['gender'], name='Actual'), pd.Series(pred_r, name='Predicted'))
 	r_results = data[2][['username', 'gender']].copy()
 	r_results['prediction'] = pred_r
 	r_results.to_csv("../Results/r_tw_mc.csv", index=False)
 
 	# Print results
-	print("\n----------TOP FEATURES----------\n")
-	print(top_features)
+	print("\n----------TOP FEATURES----------")
+	print("FEMALE\n{}\n".format(top_features_f.head(20)))
+	print("MALE\n{}\n".format(top_features_m.head(20)))
+	print("NON-BINARY\n{}".format(top_features_nb.head(20)))
 	print("--------------------------------")
 
 	print("\n\n----------LOGISTIC REGRESSION-----------\n")
 	print("----------VALIDATION----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[3]['gender'], pred_val)))
+	print("Accuracy score: {}".format(accuracy_score(data[3]['gender'], pred_val)))
 	print("---------------------------\n")
 
 	print("----------TWITTER----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['gender'], pred)))
 	print("Classification report:")
 	print(classification_report(data[1]['gender'], pred))
-	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm, index=labels, columns=labels)))
+	print("\nConfusion matrix: \n{}".format(cm))
 	print("\n\nWrong prediction sample:")
 	print(tw_results[tw_results.gender != tw_results.prediction].sample(5, random_state=1))
 	print("---------------------------")
@@ -223,7 +230,7 @@ def main():
 	print("Accuracy score: {}\n".format(accuracy_score(data[2]['gender'], pred_r)))
 	print("Classification report:")
 	print(classification_report(data[2]['gender'], pred_r))
-	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm_r, index=labels, columns=labels)))
+	print("\nConfusion matrix: \n{}".format(cm_r))
 	print("\n\nWrong prediction sample:")
 	print(r_results[r_results.gender != r_results.prediction].sample(5, random_state=1))
 	print("--------------------------")

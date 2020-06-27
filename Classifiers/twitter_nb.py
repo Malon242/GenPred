@@ -181,40 +181,41 @@ def main():
 
 	# Coefficient with feature names (most important features)
 	feature_names = model['union'].transformers_[0][1].get_feature_names() + ['puncttot', 'newtot']
-	top_features = pd.Series(abs(model.named_steps['clf'].coef_[0]), index=feature_names).nlargest(20)
+	top_features = pd.DataFrame(-(model.named_steps['clf'].coef_[0]), index=feature_names, columns=['coef'])
+	top_features = top_features.reindex(top_features.coef.abs().sort_values(ascending=False).index)
 
 	# Validation
 	pred_val = model.predict(data[3])
 
 	# Twitter
 	pred = model.predict(data[1])
-	cm = confusion_matrix(data[1]['label'], pred, labels=labels)
+	cm = pd.crosstab(pd.Series(data[1]['label'], name='Actual'), pd.Series(pred, name='Predicted'))
 	tw_results = data[1][['username', 'gender', 'label']].copy()
 	tw_results['prediction'] = pred
 	tw_results.to_csv("../Results/tw_nb.csv", index=False)
 
 	# Reddit
 	pred_r = model.predict(data[2])
-	cm_r = confusion_matrix(data[2]['label'], pred_r, labels=labels)
+	cm_r = pd.crosstab(pd.Series(data[2]['label'], name='Actual'), pd.Series(pred_r, name='Predicted'))
 	r_results = data[2][['username', 'gender', 'label']].copy()
 	r_results['prediction'] = pred_r
 	r_results.to_csv("../Results/r_tw_nb.csv", index=False)
 
 	# Print results
-	print("\n----------TOP FEATURES----------\n")
-	print(top_features)
+	print("\n----------TOP FEATURES----------")
+	print(top_features.head(20))
 	print("--------------------------------")
 
 	print("\n----------SVM LINEARSVC-----------\n")
 	print("----------VALIDATION----------")
-	print("Accuracy score: {}\n".format(accuracy_score(data[3]['label'], pred_val)))
+	print("Accuracy score: {}".format(accuracy_score(data[3]['label'], pred_val)))
 	print("---------------------------\n")
 
 	print("----------TWITTER----------")
 	print("Accuracy score: {}\n".format(accuracy_score(data[1]['label'], pred)))
 	print("Classification report:")
 	print(classification_report(data[1]['label'], pred))
-	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm, index=labels, columns=labels)))
+	print("\nConfusion matrix: \n{}".format(cm))
 	print("\n\nWrong prediction sample:")
 	print(tw_results[tw_results.label != tw_results.prediction].sample(5, random_state=1))
 	print("---------------------------")
@@ -223,7 +224,7 @@ def main():
 	print("Accuracy score: {}\n".format(accuracy_score(data[2]['label'], pred_r)))
 	print("Classification report:")
 	print(classification_report(data[2]['label'], pred_r))
-	print("\nConfusion matrix: \n{}".format(pd.DataFrame(cm_r, index=labels, columns=labels)))
+	print("\nConfusion matrix: \n{}".format(cm_r))
 	print("\n\nWrong prediction sample:")
 	print(r_results[r_results.label != r_results.prediction].sample(5, random_state=1))
 	print("--------------------------")
