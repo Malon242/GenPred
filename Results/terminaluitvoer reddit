@@ -1,0 +1,444 @@
+----------REDDIT NON-BINARY----------
+----------BASELINE-----------
+Accuracy score: 0.6782568382012054
+
+-----------------------------
+
+----------TOP FEATURES----------
+                coef
+they /      3.378002
+/ them      3.357326
+binary      3.080699
+!           2.433277
+non         2.360451
+- binary    2.319083
+or          1.926152
+this noun  -1.900544
+trans      -1.861915
+❤           1.733167
+_           1.685706
+for noun    1.618234
+nonbinary   1.595553
+them        1.591183
+...        -1.578399
+$ num       1.552290
+/           1.507060
+.          -1.498923
+propn part -1.464563
+aux non     1.460050
+--------------------------------
+
+
+----------LOGISTIC REGRESSION-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7150812064965197
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.7139545665275846
+
+Classification report:
+              precision    recall  f1-score   support
+
+          NB       0.72      0.18      0.29       694
+      NOT NB       0.71      0.97      0.82      1463
+
+    accuracy                           0.71      2157
+   macro avg       0.72      0.57      0.56      2157
+weighted avg       0.72      0.71      0.65      2157
+
+
+Confusion matrix: 
+Predicted   NB  NOT NB
+Actual                
+NB         126     568
+NOT NB      49    1414
+
+
+Wrong prediction sample:
+           username gender label prediction
+1081     Redpandas3     NB    NB     NOT NB
+563    Gallantpride     NB    NB     NOT NB
+785      DocIchabod     NB    NB     NOT NB
+1468          B0GRP     NB    NB     NOT NB
+93    Stonks_Reddit     NB    NB     NOT NB
+--------------------------
+
+----------TWITTER----------
+Accuracy score: 0.7123691977461766
+
+Classification report:
+              precision    recall  f1-score   support
+
+          NB       0.54      0.02      0.04      1076
+      NOT NB       0.71      0.99      0.83      2651
+
+    accuracy                           0.71      3727
+   macro avg       0.63      0.51      0.44      3727
+weighted avg       0.67      0.71      0.60      3727
+
+
+Confusion matrix: 
+Predicted  NB  NOT NB
+Actual               
+NB         25    1051
+NOT NB     21    2630
+
+
+Wrong prediction sample:
+            username gender   label prediction
+351    JAMEE_NICOLEE     NB      NB     NOT NB
+1866     cherryukika     NB      NB     NOT NB
+274   TheBlackFemVeg     NB      NB     NOT NB
+3361       cybershaz      F  NOT NB         NB
+2333  juniperinlatin     NB      NB     NOT NB
+---------------------------
+--------------------------------------
+----------REDDIT MALE----------
+----------BASELINE-----------
+Accuracy score: 0.6717663421418637
+
+-----------------------------
+
+----------TOP FEATURES----------
+                   coef
+newavg         6.746484
+/ him          2.656289
+he /           2.554627
+/ her         -1.336064
+💖              1.315096
+propn .        1.305317
+she /         -1.269831
+they /        -1.265309
+verb yourself -1.252048
+verb its       1.251203
+abbrev i       1.232481
+/ them        -1.206512
+. .           -1.177223
+binary        -1.175980
+propn by      -1.172298
+noun since     1.163343
+reptot        -1.145010
+as noun        1.091215
+'             -1.085625
+off            1.071639
+--------------------------------
+
+
+----------SVM LINEARSVC-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7118329466357308
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.7116365322206769
+
+Classification report:
+              precision    recall  f1-score   support
+
+           M       0.62      0.31      0.42       708
+       NOT M       0.73      0.91      0.81      1449
+
+    accuracy                           0.71      2157
+   macro avg       0.67      0.61      0.61      2157
+weighted avg       0.69      0.71      0.68      2157
+
+
+Confusion matrix: 
+Predicted    M  NOT M
+Actual               
+M          222    486
+NOT M      136   1313
+
+
+Wrong prediction sample:
+               username gender label prediction
+2090  egg_on_my_spaghet      M     M      NOT M
+1735              Woloa      M     M      NOT M
+551          ramita2005      M     M      NOT M
+1803    frankdatank_004      M     M      NOT M
+68        PajamaStripes      M     M      NOT M
+--------------------------
+
+----------TWITTER----------
+Accuracy score: 0.6324121277166622
+
+Classification report:
+              precision    recall  f1-score   support
+
+           M       0.46      0.25      0.32      1309
+       NOT M       0.67      0.84      0.75      2418
+
+    accuracy                           0.63      3727
+   macro avg       0.57      0.54      0.54      3727
+weighted avg       0.60      0.63      0.60      3727
+
+
+Confusion matrix: 
+Predicted    M  NOT M
+Actual               
+M          328    981
+NOT M      389   2029
+
+
+Wrong prediction sample:
+           username gender  label prediction
+2304      Der_Pesse      M      M      NOT M
+2985         milokp     NB  NOT M          M
+2183  shamarbeverly      M      M      NOT M
+2901   suffolkvicar      M      M      NOT M
+129      anders_d_k      M      M      NOT M
+---------------------------
+--------------------------------------
+----------REDDIT FEMALE----------
+----------BASELINE-----------
+Accuracy score: 0.6499768196569309
+
+-----------------------------
+
+----------TOP FEATURES----------
+                   coef
+newtot       -13.184200
+newavg       -12.985228
+she /          2.118824
+...            2.043446
+/ her          1.999258
+she / her      1.818652
+/ them        -1.602672
+he /          -1.570829
+noun ...       1.541830
+they / them   -1.539389
+they /        -1.532586
+--             1.488875
+:3             1.454676
+the noun and  -1.428013
+( she /        1.365322
+»              1.331866
+binary        -1.278776
+, ,           -1.254811
+nonbinary     -1.252639
+, you verb     1.179546
+--------------------------------
+
+
+----------SVM LINEARSVC-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7526682134570766
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.7352804821511358
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.67      0.48      0.56       755
+       NOT F       0.76      0.87      0.81      1402
+
+    accuracy                           0.74      2157
+   macro avg       0.71      0.68      0.69      2157
+weighted avg       0.73      0.74      0.72      2157
+
+
+Confusion matrix: 
+Predicted    F  NOT F
+Actual               
+F          363    392
+NOT F      179   1223
+
+
+Wrong prediction sample:
+               username gender  label prediction
+956       saltycameron_     NB  NOT F          F
+494          lambychopp      F      F      NOT F
+1780  lochnesswimteamNC      M  NOT F          F
+669      AlphaFoxZankee     NB  NOT F          F
+239        idkproscilla      F      F      NOT F
+--------------------------
+
+----------TWITTER----------
+Accuracy score: 0.5787496646096055
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.39      0.30      0.34      1342
+       NOT F       0.65      0.74      0.69      2385
+
+    accuracy                           0.58      3727
+   macro avg       0.52      0.52      0.52      3727
+weighted avg       0.56      0.58      0.56      3727
+
+
+Confusion matrix: 
+Predicted    F  NOT F
+Actual               
+F          404    938
+NOT F      632   1753
+
+
+Wrong prediction sample:
+             username gender  label prediction
+166      allyrosecoll      F      F      NOT F
+272           efboltz      F      F      NOT F
+1453  BroussardRhonda      F      F      NOT F
+1011      WispsOfLove     NB  NOT F          F
+2695       zannalyons      F      F      NOT F
+---------------------------
+--------------------------------------
+----------REDDIT MULTICLASS----------
+----------BASELINE-----------
+Accuracy score: 0.35002318034306906
+
+-----------------------------
+
+----------TOP FEATURES----------
+FEMALE
+                   coef
+newtot       -13.184200
+newavg       -12.985228
+she /          2.118824
+...            2.043447
+/ her          1.999258
+she / her      1.818652
+/ them        -1.602672
+he /          -1.570829
+noun ...       1.541830
+they / them   -1.539389
+they /        -1.532586
+--             1.488875
+:3             1.454676
+the noun and  -1.428013
+( she /        1.365322
+»              1.331866
+binary        -1.278776
+, ,           -1.254811
+nonbinary     -1.252639
+, you verb     1.179546
+
+MALE
+                   coef
+newtot         4.562345
+newavg         4.515789
+he / him       2.370797
+/ him          2.357108
+he /           2.306566
+the noun and   1.695980
+💖              1.377164
+. .           -1.334645
+. . .         -1.332747
+propn .        1.271631
+aux           -1.249749
+!             -1.234737
+'             -1.223759
+❤             -1.219104
+and           -1.217929
+verb yourself -1.178275
+they /        -1.167719
+off            1.163603
+verb its       1.161901
+binary        -1.156065
+
+NON-BINARY
+                  coef
+/ them        2.563117
+they /        2.531879
+they / them   2.492110
+newtot        2.350432
+binary        2.229108
+newavg        2.122716
+non           1.628065
+nonbinary     1.569123
+- binary      1.562942
+!             1.553595
+trans        -1.503150
+❤             1.502050
+or            1.471305
+non - binary  1.468234
+_             1.374013
+this noun    -1.342732
+i aux non     1.337921
+/ him        -1.269427
+😁            -1.265618
+$ num         1.263260
+--------------------------------
+
+
+----------SVM LINEARSVC-----------
+
+----------VALIDATION----------
+Accuracy score: 0.5712296983758701
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.5609643022716736
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.58      0.66      0.61       755
+           M       0.55      0.51      0.53       708
+          NB       0.55      0.51      0.53       694
+
+    accuracy                           0.56      2157
+   macro avg       0.56      0.56      0.56      2157
+weighted avg       0.56      0.56      0.56      2157
+
+
+Confusion matrix: 
+Predicted    F    M   NB
+Actual                  
+F          496  130  129
+M          187  362  159
+NB         179  163  352
+
+
+Wrong prediction sample:
+         username gender prediction
+553    MissAriary      F         NB
+1913     Moonbox2     NB          F
+913   whowhomever     NB          F
+1646   hand-o-pus      M          F
+1353  TheTacoclaw      M         NB
+--------------------------
+
+----------TWITTER----------
+Accuracy score: 0.40756640729809496
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.40      0.53      0.46      1342
+           M       0.40      0.43      0.41      1309
+          NB       0.45      0.22      0.30      1076
+
+    accuracy                           0.41      3727
+   macro avg       0.42      0.40      0.39      3727
+weighted avg       0.42      0.41      0.40      3727
+
+
+Confusion matrix: 
+Predicted    F    M   NB
+Actual                  
+F          715  466  161
+M          618  562  129
+NB         458  376  242
+
+
+Wrong prediction sample:
+             username gender prediction
+3017       Calcifer_S     NB          M
+2641   JamilaMHammami     NB          M
+2094           adammw      M          F
+681   chordaetendinae     NB          M
+324          EviKline      F          M
+---------------------------
+--------------------------------------
+
+real	31m31.345s
+user	29m37.039s
+sys	0m44.882s
+MacBook-Air-van-Malon:Classifiers Malon$ 

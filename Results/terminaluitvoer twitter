@@ -1,0 +1,443 @@
+----------TWITTER NON-BINARY----------
+----------BASELINE-----------
+Accuracy score: 0.7112959484840354
+
+-----------------------------
+
+----------TOP FEATURES----------
+                 coef
+:d           3.242692
+! <hashtag> -2.582928
+nonbinary    2.194955
+out here     1.954505
+trans        1.896555
+here for     1.857288
+<hashtag> 😍  1.809076
+abbrev       1.770052
+<user> !    -1.736407
+trans noun   1.733283
+they /       1.717704
+... <link>  -1.713144
+/ them       1.677467
+if abbrev   -1.641448
+! :d         1.627401
+<catask>     1.598484
+wild         1.581868
+non          1.569573
+verb some    1.511790
+//           1.497762
+--------------------------------
+
+----------SVM LINEARSVC-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7868456375838926
+---------------------------
+
+----------TWITTER----------
+Accuracy score: 0.7880332707271264
+
+Classification report:
+              precision    recall  f1-score   support
+
+          NB       0.67      0.51      0.58      1076
+      NOT NB       0.82      0.90      0.86      2651
+
+    accuracy                           0.79      3727
+   macro avg       0.75      0.71      0.72      3727
+weighted avg       0.78      0.79      0.78      3727
+
+
+Confusion matrix: 
+Predicted   NB  NOT NB
+Actual                
+NB         554     522
+NOT NB     268    2383
+
+
+Wrong prediction sample:
+             username gender   label prediction
+2750        gantpants      M  NOT NB         NB
+649        DomDiFurio      M  NOT NB         NB
+1110        joe_yer99      M  NOT NB         NB
+2040         PNambyar     NB      NB     NOT NB
+278   smolqueerdragon      F  NOT NB         NB
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.5243393602225312
+
+Classification report:
+              precision    recall  f1-score   support
+
+          NB       0.37      0.67      0.47       694
+      NOT NB       0.74      0.46      0.57      1463
+
+    accuracy                           0.52      2157
+   macro avg       0.56      0.56      0.52      2157
+weighted avg       0.62      0.52      0.54      2157
+
+
+Confusion matrix: 
+Predicted   NB  NOT NB
+Actual                
+NB         463     231
+NOT NB     795     668
+
+
+Wrong prediction sample:
+            username gender   label prediction
+1697          Ownard      M  NOT NB         NB
+921   Pantalaimon40k      F  NOT NB         NB
+945      ItsDemiBlue      M  NOT NB         NB
+574      comfortpunk     NB      NB     NOT NB
+1960          teztzu      M  NOT NB         NB
+--------------------------
+--------------------------------------
+----------TWITTER MALE----------
+----------BASELINE-----------
+Accuracy score: 0.6487791789643145
+
+-----------------------------
+
+----------TOP FEATURES----------
+                      coef
+&                -5.661146
+♀                -4.761105
+. <user>         -4.441345
+@ propn           4.341125
+. <link>          4.192333
+“ <user>          3.764484
+! <hashtag>       3.730395
+♂                 3.721109
+<link> verb      -3.688682
+, ,               3.655729
+the               3.573391
+‍ ♀              -3.484416
+female           -3.423208
+abbrev           -3.389033
+<user> <hashtag> -3.384160
+my               -3.300774
+‍ ♂               3.282925
+✨                -3.282120
+👍 🏻               3.255157
+verb grateful     3.215209
+--------------------------------
+
+
+----------LOGISTIC REGRESSION-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7130201342281879
+---------------------------
+
+----------TWITTER----------
+Accuracy score: 0.7155889455326
+
+Classification report:
+              precision    recall  f1-score   support
+
+           M       0.64      0.42      0.51      1309
+       NOT M       0.74      0.87      0.80      2418
+
+    accuracy                           0.72      3727
+   macro avg       0.69      0.65      0.66      3727
+weighted avg       0.70      0.72      0.70      3727
+
+
+Confusion matrix: 
+Predicted    M  NOT M
+Actual               
+M          556    753
+NOT M      307   2111
+
+
+Wrong prediction sample:
+            username gender label prediction
+751     traviszinnel      M     M      NOT M
+2298  TheJasonGreene      M     M      NOT M
+2671       Der_Pesse      M     M      NOT M
+2752  theMattDouglas      M     M      NOT M
+2187    gauravsabnis      M     M      NOT M
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.6657394529439036
+
+Classification report:
+              precision    recall  f1-score   support
+
+           M       0.48      0.24      0.32       708
+       NOT M       0.70      0.88      0.78      1449
+
+    accuracy                           0.67      2157
+   macro avg       0.59      0.56      0.55      2157
+weighted avg       0.63      0.67      0.63      2157
+
+
+Confusion matrix: 
+Predicted    M  NOT M
+Actual               
+M          167    541
+NOT M      180   1269
+
+
+Wrong prediction sample:
+               username gender  label prediction
+182        tiptoptrex04      M      M      NOT M
+183   AmazingTrashcan69      M      M      NOT M
+642       oliviabranche      F  NOT M          M
+1928        ThrowRAidek      F  NOT M          M
+29         wheresmypeen      M      M      NOT M
+--------------------------
+--------------------------------------
+----------TWITTER FEMALE----------
+----------BASELINE-----------
+Accuracy score: 0.6399248725516501
+
+-----------------------------
+
+----------TOP FEATURES----------
+                      coef
+profanity        -6.796087
+.                 6.175827
+<hashtag>         5.934581
+♀                 4.642095
+<user> <hashtag>  4.498534
+<user>            4.496741
+!                 4.156563
+&                 4.045302
+‍ ♀               3.985470
+<hashtag> <link>  3.835130
+🏼                 3.820047
+@ propn          -3.562901
+its              -3.493047
+@                -3.391457
+@ propn propn    -3.243202
+, and            -3.184826
+<link>            3.159867
+... <link>        3.133545
+. <user>          3.132463
+emotot            3.106296
+--------------------------------
+
+
+----------LOGISTIC REGRESSION-----------
+
+----------VALIDATION----------
+Accuracy score: 0.7430872483221477
+---------------------------
+
+----------TWITTER----------
+Accuracy score: 0.7582506037027099
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.69      0.60      0.64      1342
+       NOT F       0.79      0.85      0.82      2385
+
+    accuracy                           0.76      3727
+   macro avg       0.74      0.72      0.73      3727
+weighted avg       0.75      0.76      0.75      3727
+
+
+Confusion matrix: 
+Predicted    F  NOT F
+Actual               
+F          800    542
+NOT F      359   2026
+
+
+Wrong prediction sample:
+           username gender  label prediction
+3577   amacduffking      F      F      NOT F
+3643  jessicaeburke      F      F      NOT F
+3630       zzzooeee      F      F      NOT F
+3298    ShantaDotCa      F      F      NOT F
+2150    loeyjopez07      M  NOT F          F
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.6671302735280482
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.78      0.07      0.13       755
+       NOT F       0.66      0.99      0.79      1402
+
+    accuracy                           0.67      2157
+   macro avg       0.72      0.53      0.46      2157
+weighted avg       0.70      0.67      0.56      2157
+
+
+Confusion matrix: 
+Predicted   F  NOT F
+Actual              
+F          52    703
+NOT F      15   1387
+
+
+Wrong prediction sample:
+                 username gender label prediction
+189           peanuckle24      F     F      NOT F
+193              _Rutana_      F     F      NOT F
+682   AuthoringInProgress      F     F      NOT F
+1888             _Rutana_      F     F      NOT F
+24        Low-Maintenance      F     F      NOT F
+--------------------------
+--------------------------------------
+----------TWITTER MULTICLASS----------
+----------BASELINE-----------
+Accuracy score: 0.36007512744834985
+
+-----------------------------
+
+----------TOP FEATURES----------
+FEMALE
+                                   coef
+<hashtag>                      3.370287
+.                              3.250550
+profanity                     -2.864277
+<user>                         2.841146
+!                              2.095415
+<hashtag> <link>               2.017446
+<user> <hashtag>               2.009905
+♀                              1.905708
+&                              1.897165
+‍ ♀                            1.597161
+🏼                              1.517671
+<link>                         1.498639
+@                             -1.443060
+@ propn                       -1.433511
+<hashtag> <hashtag> <hashtag> -1.391840
+🏽                              1.370139
+our                            1.337255
+noun !                         1.321537
+noun                           1.304985
+. <user>                       1.268312
+
+MALE
+                   coef
+&             -2.682236
+my            -1.878727
+, ,            1.751899
+the            1.739435
+abbrev        -1.648643
+!             -1.622707
+. <link>       1.516273
+♀             -1.440971
+great          1.436154
+noun . <link>  1.280766
+propn propn    1.238981
+his            1.217886
+its            1.214934
+me            -1.212175
+great noun     1.211950
+@ propn        1.183904
+<hashtag>     -1.182889
+@ propn propn  1.174838
+and           -1.164071
+✨             -1.121620
+
+NON-BINARY
+                                   coef
+<user>                        -3.481221
+.                             -2.793955
+abbrev                         2.538938
+profanity                      2.189147
+<hashtag>                     -2.187397
+<hashtag> <hashtag> <hashtag>  2.073155
+<link>                        -1.941092
+! <hashtag>                   -1.862709
+-                             -1.822285
+:d                             1.769858
+noun .                        -1.690451
+...                           -1.642058
+. <link>                      -1.514227
+and                            1.432897
+! <hashtag> <hashtag>         -1.406431
+i                              1.394192
+... <link>                    -1.377430
+me                             1.357166
+. <hashtag>                   -1.350906
+the                           -1.315197
+--------------------------------
+
+
+----------LOGISTIC REGRESSION-----------
+
+----------VALIDATION----------
+Accuracy score: 0.6040268456375839
+---------------------------
+
+----------TWITTER----------
+Accuracy score: 0.6147035148913335
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.62      0.70      0.66      1342
+           M       0.60      0.55      0.57      1309
+          NB       0.64      0.58      0.61      1076
+
+    accuracy                           0.61      3727
+   macro avg       0.62      0.61      0.61      3727
+weighted avg       0.61      0.61      0.61      3727
+
+
+Confusion matrix: 
+Predicted    F    M   NB
+Actual                  
+F          946  245  151
+M          383  719  207
+NB         209  241  626
+
+
+Wrong prediction sample:
+             username gender prediction
+1340  pattonsanders_q      M         NB
+1135         gemmacaf      F          M
+814    DanceforMyself     NB          F
+2724   tiffanymjewell      F          M
+706        joelcadams      M          F
+---------------------------
+
+----------REDDIT----------
+Accuracy score: 0.4084376448771442
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F       0.78      0.12      0.20       755
+           M       0.45      0.28      0.35       708
+          NB       0.37      0.85      0.52       694
+
+    accuracy                           0.41      2157
+   macro avg       0.53      0.42      0.36      2157
+weighted avg       0.54      0.41      0.35      2157
+
+
+Confusion matrix: 
+Predicted   F    M   NB
+Actual                 
+F          89  154  512
+M          12  201  495
+NB         13   90  591
+
+
+Wrong prediction sample:
+             username gender prediction
+145   baylienotbaylie      F         NB
+1332     cheeseheadno      F         NB
+622      CheesyRecord      M         NB
+1523    flashbluenet1      M         NB
+292     FrequencyRobo      M         NB
+--------------------------
+--------------------------------------
+
+real	32m38.785s
+user	31m26.117s
+sys	0m57.087s
+MacBook-Air-van-Malon:Classifiers Malon$ 

@@ -1,26 +1,26 @@
 TWITTER CLASSIFIERS
-            username gender   label prediction
+            username gender   label prediction	notes
 1697          Ownard      M  NOT NB         NB
 921   Pantalaimon40k      F  NOT NB         NB
 945      ItsDemiBlue      M  NOT NB         NB
 574      comfortpunk     NB      NB     NOT NB
 1960          teztzu      M  NOT NB         NB
 
-               username gender  label prediction
+               username gender  label prediction	notes
 182        tiptoptrex04      M      M      NOT M
 183   AmazingTrashcan69      M      M      NOT M
 642       oliviabranche      F  NOT M          M
 1928        ThrowRAidek      F  NOT M          M
 29         wheresmypeen      M      M      NOT M
 
-                 username gender label prediction
+                 username gender label prediction	notes
 189           peanuckle24      F     F      NOT F
 193              _Rutana_      F     F      NOT F
 682   AuthoringInProgress      F     F      NOT F
-1888             _Rutana_      F     F      NOT F
+1888             _Rutana_      F     F      NOT F 	duplicate, see above (line 18)
 24        Low-Maintenance      F     F      NOT F
 
-             username gender prediction
+             username gender prediction	notes
 145   baylienotbaylie      F         NB
 1332     cheeseheadno      F         NB
 622      CheesyRecord      M         NB
@@ -28,28 +28,28 @@ TWITTER CLASSIFIERS
 292     FrequencyRobo      M         NB
 
 REDDIT CLASSIFIERS
-           username gender label prediction
+           username gender label prediction	notes
 1081     Redpandas3     NB    NB     NOT NB
 563    Gallantpride     NB    NB     NOT NB
 785      DocIchabod     NB    NB     NOT NB
 1468          B0GRP     NB    NB     NOT NB
 93    Stonks_Reddit     NB    NB     NOT NB
 
-               username gender label prediction
+               username gender label prediction	notes
 2090  egg_on_my_spaghet      M     M      NOT M
 1735              Woloa      M     M      NOT M
 551          ramita2005      M     M      NOT M
 1803    frankdatank_004      M     M      NOT M
 68        PajamaStripes      M     M      NOT M
 
-               username gender  label prediction
+               username gender  label prediction	notes
 956       saltycameron_     NB  NOT F          F
 494          lambychopp      F      F      NOT F
 1780  lochnesswimteamNC      M  NOT F          F
 669      AlphaFoxZankee     NB  NOT F          F
 239        idkproscilla      F      F      NOT F
 
-         username gender prediction
+         username gender prediction	notes
 553    MissAriary      F         NB
 1913     Moonbox2     NB          F
 913   whowhomever     NB          F

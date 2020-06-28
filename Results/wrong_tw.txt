@@ -1,26 +1,26 @@
 TWITTER CLASSIFIERS
-             username gender   label prediction
+             username gender   label prediction	notes
 2750        gantpants      M  NOT NB         NB
 649        DomDiFurio      M  NOT NB         NB
 1110        joe_yer99      M  NOT NB         NB
 2040         PNambyar     NB      NB     NOT NB
 278   smolqueerdragon      F  NOT NB         NB
 
-            username gender label prediction
+            username gender label prediction	notes
 751     traviszinnel      M     M      NOT M
 2298  TheJasonGreene      M     M      NOT M
 2671       Der_Pesse      M     M      NOT M
 2752  theMattDouglas      M     M      NOT M
 2187    gauravsabnis      M     M      NOT M
 
-           username gender  label prediction
+           username gender  label prediction	notes
 3577   amacduffking      F      F      NOT F
 3643  jessicaeburke      F      F      NOT F
 3630       zzzooeee      F      F      NOT F
 3298    ShantaDotCa      F      F      NOT F
 2150    loeyjopez07      M  NOT F          F
 
-             username gender prediction
+             username gender prediction	notes
 1340  pattonsanders_q      M         NB
 1135         gemmacaf      F          M
 814    DanceforMyself     NB          F
@@ -28,28 +28,28 @@ TWITTER CLASSIFIERS
 706        joelcadams      M          F
 
 REDDIT CLASSIFIERS
-            username gender   label prediction
+            username gender   label prediction	notes
 351    JAMEE_NICOLEE     NB      NB     NOT NB
 1866     cherryukika     NB      NB     NOT NB
 274   TheBlackFemVeg     NB      NB     NOT NB
 3361       cybershaz      F  NOT NB         NB
 2333  juniperinlatin     NB      NB     NOT NB
 
-           username gender  label prediction
-2304      Der_Pesse      M      M      NOT M
+           username gender  label prediction	notes
+2304      Der_Pesse      M      M      NOT M 	duplicate, see above (line 12)
 2985         milokp     NB  NOT M          M
 2183  shamarbeverly      M      M      NOT M
 2901   suffolkvicar      M      M      NOT M
 129      anders_d_k      M      M      NOT M
 
-             username gender  label prediction
+             username gender  label prediction	notes
 166      allyrosecoll      F      F      NOT F
 272           efboltz      F      F      NOT F
 1453  BroussardRhonda      F      F      NOT F
 1011      WispsOfLove     NB  NOT F          F
 2695       zannalyons      F      F      NOT F
 
-             username gender prediction
+             username gender prediction	notes
 3017       Calcifer_S     NB          M
 2641   JamilaMHammami     NB          M
 2094           adammw      M          F
