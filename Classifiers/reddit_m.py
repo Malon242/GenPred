@@ -195,7 +195,7 @@ def main():
 
 	# Twitter
 	pred_tw = model.predict(data[2])
-	cm_tw = pd.crosstab(pd.Series(data[2]['label'], name='Actual'), pd.Series(pred_r, name='Predicted'))
+	cm_tw = pd.crosstab(pd.Series(data[2]['label'], name='Actual'), pd.Series(pred_tw, name='Predicted'))
 	tw_results = data[2][['username', 'gender', 'label']].copy()
 	tw_results['prediction'] = pred_tw
 	tw_results.to_csv("../Results/tw_r_m.csv", index=False)
