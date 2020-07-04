@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a binary classifier used to predict whether a Reddit user
+is 'Male' or not. It uses a LinearSVC classifier with 1,2 n-grams, the average number
+of newlines and the total number of repeating characters used in a text 
+written by a user.
 '''
 
 import re
@@ -123,9 +126,6 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['comb_posts'] = df['posts'].apply(lambda x: ' '.join(x))
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
-	# Case
-	df['lower_tot'] = df['comb_posts'].apply(lambda x: len(re.findall(r'[a-z]', x)))
-	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'
 	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))

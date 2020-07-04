@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a binary classifier used to predict whether a Reddit user
+is 'Non-binary' or not. It uses a Logistics Regression classifier with 1,2 n-grams,
+and the total length in characters of a text written by a user.
 '''
 
 import re
@@ -128,7 +130,6 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'
-	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))
 	
 	# POS tags
 	tags = ['<LINK>', '<USER>', '<HASHTAG>', '<DESCRIPTION>', '<CATASK>', '<SUBREDDIT>',

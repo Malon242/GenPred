@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a binary classifier used to predict whether a Twitter user
+is 'Female' or not. It uses a Logistics Regression classifier with 1-3 n-grams, 
+and the total number of newlines, emojis, and punctuation used in a text written 
+by a user.
 '''
 
 import re
@@ -125,9 +128,6 @@ def features(df, nlp, prof_lst, abbrev_lst):
 
 	# Emojis
 	df['emoji_tot'] = df['comb_posts'].apply(lambda x: len([char for char in x if char in emoji.UNICODE_EMOJI]))
-	
-	# Case
-	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
 	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'

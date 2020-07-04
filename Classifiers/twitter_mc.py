@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a multi-class classifier used to predict whether a Twitter user
+is 'Male', 'Female', or 'Non-binary'. It uses a Logistic Regression classifier with 
+1-3 n-grams, the total number of uppercase letter, repeating letters, and newlines 
+used in a text written by a user.
 '''
 
 import re

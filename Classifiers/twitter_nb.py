@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a binary classifier used to predict whether a Twitter user
+is 'Non-binary' or not. It uses a LinearSVC classifier with 1,2 n-grams, total punctuation
+and the total of newlines used in a text written by a user.
 '''
 
 import re
@@ -123,13 +125,6 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['comb_posts'] = df['posts'].apply(lambda x: ' '.join(x))
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
-	# Emojis
-	df['emoji_tot'] = df['comb_posts'].apply(lambda x: len([char for char in x if char in emoji.UNICODE_EMOJI]))
-	
-	# Case
-	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
-	df['upper_avg'] = df['upper_tot']/df['length']
-	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'
 	df['punct_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('[{}]'.format(punct),x)))

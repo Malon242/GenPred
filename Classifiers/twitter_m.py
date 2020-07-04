@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 '''
-Explanation...
+This program is a binary classifier used to predict whether a Twitter user
+is 'Male' or not. It uses a Logistic Regression classifier with 1,2 n-grams, 
+and the total and average number of newlines used in a text written by a user.
 '''
 
 import re
@@ -123,9 +125,6 @@ def features(df, nlp, prof_lst, abbrev_lst):
 	df['comb_posts'] = df['posts'].apply(lambda x: ' '.join(x))
 	df['no_rep'] = df['no_rep'].apply(lambda x: ' '.join(x))
 
-	# Case
-	df['upper_tot'] = df['comb_posts'].apply(lambda x: len([i for i in re.findall(r'(?:<[A-Z]+)>|([A-Z])', x) if i !='']))
-	
 	# Punctuation
 	punct = '!_@}+\-~{;*./`?,:\])\\#[=\"&%\'(^|$—“”’—...'
 	df['newline_tot'] = df['comb_posts'].apply(lambda x: len(re.findall('\r\n', x)))
